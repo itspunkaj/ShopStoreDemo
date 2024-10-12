@@ -21,7 +21,10 @@ import DoveWhite from './assets/DoveWhite.svg';
 import TresemmeBlack from './assets/TresemmeBlack.svg';
 import AxeBlack from './assets/AxeBlack.svg';
 import searchIcon from './assets/searchIcon.svg'
-import cartIcon from './assets/cart.svg'
+import cartIcon from './assets/cart.svg';
+import EIcon from './assets/E.svg'
+
+
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -43,6 +46,9 @@ export default function App() {
   const { getReferenceProps, getFloatingProps } = useInteractions([hover]);
   return (
     <div className='relative h-[100lvh]'>
+      <div className='absolute top-5 left-10 z-50 bg-yellow-400 rounded-full p-2'>
+        <img src={EIcon} alt='icon' className='h-16 w-16' />
+      </div>
       <div className='absolute top-5 right-10 z-50 bg-yellow-400 rounded-full p-2'>
         <img src={searchIcon} alt='icon' className='h-5 w-5' />
       </div>
