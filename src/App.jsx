@@ -47,7 +47,7 @@ export default function App() {
   return (
     <div className='relative h-[100lvh]'>
       <div className='absolute top-5 left-10 z-50 bg-yellow-400 rounded-full p-2'>
-        <img src={EIcon} alt='icon' className='h-16 w-16' />
+        <img src={EIcon} alt='icon' className='md:h-16 md:w-16 h-8 w-8' />
       </div>
       <div className='absolute top-5 right-10 z-50 bg-yellow-400 rounded-full p-2'>
         <img src={searchIcon} alt='icon' className='h-5 w-5' />
