@@ -21,7 +21,7 @@ import DoveWhite from './assets/DoveWhite.svg';
 import TresemmeBlack from './assets/TresemmeBlack.svg';
 import AxeBlack from './assets/AxeBlack.svg';
 import searchIcon from './assets/searchIcon.svg'
-
+import cartIcon from './assets/cart.svg'
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -42,11 +42,14 @@ export default function App() {
 
   const { getReferenceProps, getFloatingProps } = useInteractions([hover]);
   return (
-    <div className='relative'>
+    <div className='relative h-[100lvh]'>
       <div className='absolute top-5 right-10 z-50 bg-yellow-400 rounded-full p-2'>
         <img src={searchIcon} alt='icon' className='h-5 w-5' />
       </div>
-      <Swiper navigation={true} modules={[Navigation]} className="mySwiper" loop={true} slidesPerView={1} >
+      <div className='absolute bottom-28 left-[50%] -translate-x-[50%] z-50 bg-yellow-400 rounded-full p-2'>
+        <img src={cartIcon} alt='icon' className='h-10 w-10' />
+      </div>
+      <Swiper navigation={true} modules={[Navigation]} className="mySwiper h-[100lvh]" loop={true} slidesPerView={1} >
         <SwiperSlide className='bg-[#2C2C2C] flex flex-col'>
           <div className='w-full h-auto grid grid-cols-12'>
             <div className='col-span-6 md:col-span-3  flex items-end border-b-[20px] border-[#BAAD94] border-solid' ref={refs.setReference} {...getReferenceProps()}>
@@ -66,9 +69,9 @@ export default function App() {
               </div>
             )}
             <div className='col-span-6 md:col-span-3 flex items-end border-b-[20px] border-[#BAAD94] border-solid' >
-              <img src={Loreal} className='!h-auto' />
-              <img src={Loreal} className='!h-auto' />
-              <img src={Loreal} className='!h-auto' />
+              <img src={Loreal} className='!object-contain !h-3/4 !w-1/2' />
+              <img src={Loreal} className='!object-contain !h-3/4 !w-1/2' />
+              <img src={Loreal} className='!object-contain !h-3/4 !w-1/2' />
             </div>
             <div className='col-span-4 md:col-span-2 flex items-end border-b-[20px] border-[#BAAD94] border-solid'>
               <img src={NiveaWhite} className='!object-contain !h-3/4 !w-1/2' />
@@ -92,31 +95,31 @@ export default function App() {
               <img src={DoveWhite} className='!object-contain !h-3/4 !w-1/2' />
             </div>
             <div className='col-span-4 md:col-span-2 h-2/3 flex items-end border-b-[20px] border-[#BAAD94] border-solid'>
-              <img src={TresemmeBlack} className='!h-auto' />
-              <img src={TresemmeBlack} className='!h-auto' />
+              <img src={TresemmeBlack} className='!object-contain !h-3/4 !w-1/2' />
+              <img src={TresemmeBlack} className='!object-contain !h-3/4 !w-1/2' />
             </div>
-            <div className='col-span-6 md:col-span-3 h-4/6  flex items-end border-b-[20px] border-[#BAAD94] border-solid'>
+            <div className='col-span-6 md:col-span-3 h-2/3  flex items-end border-b-[20px] border-[#BAAD94] border-solid'>
               <img src={AxeBlack} className='!object-contain !h-3/4 !w-1/2' />
               <img src={AxeBlack} className='!object-contain !h-3/4 !w-1/2' />
             </div>
             <div className='col-span-6 md:col-span-3 h-2/3  flex items-end border-b-[20px] border-[#BAAD94] border-solid'>
-              <img src={Loreal} className='!h-auto' />
-              <img src={Loreal} className='!h-auto' />
-              <img src={Loreal} className='!h-auto' />
+              <img src={Loreal} className='!object-contain !h-3/4 !w-1/2' />
+              <img src={Loreal} className='!object-contain !h-3/4 !w-1/2' />
+              <img src={Loreal} className='!object-contain !h-3/4 !w-1/2' />
             </div>
           </div>
         </SwiperSlide>
         <SwiperSlide className='bg-[#2C2C2C] flex flex-col'>
           <div className='w-full h-auto grid grid-cols-12'>
             <div className='col-span-6 md:col-span-3  flex items-end border-b-[20px] border-[#BAAD94] border-solid'>
-              <img src={AxeBlue} className=' !w-1/3 !h-auto' />
-              <img src={AxeBlue} className=' !w-1/3  !h-auto' />
-              <img src={AxeBlue} className='!w-1/3  !h-auto' />
+              <img src={AxeBlue} className='!object-contain !h-3/4 !w-1/2' />
+              <img src={AxeBlue} className='!object-contain !h-3/4 !w-1/2' />
+              <img src={AxeBlue} className='!object-contain !h-3/4 !w-1/2' />
             </div>
             <div className='col-span-6 md:col-span-3 flex items-end border-b-[20px] border-[#BAAD94] border-solid'>
-              <img src={Loreal} className='!h-auto' />
-              <img src={Loreal} className='!h-auto' />
-              <img src={Loreal} className='!h-auto' />
+              <img src={Loreal} className='!object-contain !h-3/4 !w-1/2' />
+              <img src={Loreal} className='!object-contain !h-3/4 !w-1/2' />
+              <img src={Loreal} className='!object-contain !h-3/4 !w-1/2' />
               {/* <img src={Loreal} className='!w-[!h-auto -translate-x-[90%]' /> */}
               {/* <img src={Loreal} className=' !h-auto -translate-x-[120%]' /> */}
             </div>
@@ -142,17 +145,17 @@ export default function App() {
               <img src={DoveWhite} className='!object-contain !h-3/4 !w-1/2' />
             </div>
             <div className='col-span-4 md:col-span-2 h-2/3 flex items-end border-b-[20px] border-[#BAAD94] border-solid'>
-              <img src={TresemmeBlack} className='!h-auto' />
-              <img src={TresemmeBlack} className='!h-auto' />
+              <img src={TresemmeBlack} className='!object-contain !h-3/4 !w-1/2' />
+              <img src={TresemmeBlack} className='!object-contain !h-3/4 !w-1/2' />
             </div>
-            <div className='col-span-6 md:col-span-3 h-4/6  flex items-end border-b-[20px] border-[#BAAD94] border-solid'>
+            <div className='col-span-6 md:col-span-3 h-2/3  flex items-end border-b-[20px] border-[#BAAD94] border-solid'>
               <img src={AxeBlack} className='!object-contain !h-3/4 !w-1/2' />
               <img src={AxeBlack} className='!object-contain !h-3/4 !w-1/2' />
             </div>
             <div className='col-span-6 md:col-span-3 h-2/3  flex items-end border-b-[20px] border-[#BAAD94] border-solid'>
-              <img src={Loreal} className='!h-auto' />
-              <img src={Loreal} className='!h-auto' />
-              <img src={Loreal} className='!h-auto' />
+              <img src={Loreal} className='!object-contain !h-3/4 !w-1/2' />
+              <img src={Loreal} className='!object-contain !h-3/4 !w-1/2' />
+              <img src={Loreal} className='!object-contain !h-3/4 !w-1/2' />
             </div>
           </div>
         </SwiperSlide>
