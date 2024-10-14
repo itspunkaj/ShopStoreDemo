@@ -24,6 +24,63 @@ import searchIcon from './assets/searchIcon.svg'
 import cartIcon from './assets/cart.svg';
 import EIcon from './assets/E.svg'
 
+const products = [
+  {
+    name: 'Axe Blue',
+    price: 2.00,
+    imgUrl: AxeBlue,
+    col: 3
+  },
+  {
+    name: 'Loreal',
+    price: 1.99,
+    imgUrl: Loreal,
+    col: 3
+  },
+  {
+    name: 'Nivea White',
+    price: 1.49,
+    imgUrl: NiveaWhite,
+    col: 2
+  },
+  {
+    name: 'Nivea Blue',
+    price: 1.69,
+    imgUrl: NiveaBlue,
+    col: 2
+  },
+  {
+    name: 'Loreal Shampoo',
+    price: 1.69,
+    imgUrl: LorealShamp,
+    col: 2
+  },
+  {
+    name: 'Dove White',
+    price: 1.79,
+    imgUrl: DoveWhite,
+    col: 4
+  },
+  {
+    name: 'Tresemme Black',
+    price: 2.19,
+    imgUrl: TresemmeBlack,
+    col: 2
+  },
+  {
+    name: 'Axe Black',
+    price: 2.00,
+    imgUrl: AxeBlack,
+    col: 3
+  },
+  {
+    name: 'Loreal',
+    price: 1.99,
+    imgUrl: Loreal,
+    col: 3
+  },
+
+]
 
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,19 +102,35 @@ export default function App() {
 
   const { getReferenceProps, getFloatingProps } = useInteractions([hover]);
   return (
-    <div className='relative h-[100lvh]'>
-      <div className='absolute top-5 left-10 z-50 bg-yellow-400 rounded-full p-2'>
+    <div className='h-[100lvh]'>
+      <div className='absolute top-5 left-10 z-50 bg-yellow-400 rounded-full p-2 shadow-2xl shadow-black'>
         <img src={EIcon} alt='icon' className='md:h-16 md:w-16 h-8 w-8' />
       </div>
-      <div className='absolute top-5 right-10 z-50 bg-yellow-400 rounded-full p-2'>
+      <div className='absolute top-5 right-10 z-50 bg-yellow-400 rounded-full p-2 shadow-2xl shadow-black'>
         <img src={searchIcon} alt='icon' className='h-5 w-5' />
       </div>
-      <div className='absolute bottom-28 left-[50%] -translate-x-[50%] z-50 bg-yellow-400 rounded-full p-2'>
-        <img src={cartIcon} alt='icon' className='h-10 w-10' />
+      <div className='absolute bottom-0 left-[50%] -translate-x-[50%] z-50 rounded-t-full bg-yellow-400 p-2 shadow-2xl shadow-black'>
+        <img src={cartIcon} alt='icon' className='h-14 w-28' />
       </div>
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper h-[100lvh]" loop={true} slidesPerView={1} >
         <SwiperSlide className='bg-[#2C2C2C] flex flex-col'>
-          <div className='w-full h-auto grid grid-cols-12'>
+          <div className='w-full grid grid-cols-12'>
+            {products.map((product, index) => {
+              return (
+                <div key={index} className={`col-span-${product.col * 2} md:col-span-${product.col} `} style={{ zIndex: 999 }}>
+                  <div className='h-shelfHeight flex items-end'>
+                    {Array.from({ length: product.col }, (p, i) => (
+                      <img key={i} src={product.imgUrl} className={`!w-1/${product.col} image-${product.col} max-h-[100%] `} />))}
+                  </div>
+                  <div className={`h-shelfWidth w-full bg-[#BAAD94] flex items-center justify-center shadow-3xl shadow-slate-900`} >
+                    {product.name} ${product.price}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* <div className='w-full grid grid-cols-12 h-shelf'>
             <div className='col-span-6 md:col-span-3  flex items-end border-b-[20px] border-[#BAAD94] border-solid' ref={refs.setReference} {...getReferenceProps()}>
               <img src={AxeBlue} className=' !w-1/3 !h-auto' />
               <img src={AxeBlue} className=' !w-1/3  !h-auto' />
@@ -92,8 +165,6 @@ export default function App() {
               <img src={LorealShamp} className='!object-contain !h-3/4 !w-1/2' />
               <img src={LorealShamp} className='!object-contain !h-3/4 !w-1/2' />
             </div>
-          </div>
-          <div className='w-full h-auto grid grid-cols-12 '>
             <div className='col-span-8 md:col-span-4 h-2/3 flex items-end border-b-[20px] border-[#BAAD94] border-solid'>
               <img src={DoveWhite} className='!object-contain !h-3/4 !w-1/2' />
               <img src={DoveWhite} className='!object-contain !h-3/4 !w-1/2' />
@@ -113,10 +184,25 @@ export default function App() {
               <img src={Loreal} className='!object-contain !h-3/4 !w-1/2' />
               <img src={Loreal} className='!object-contain !h-3/4 !w-1/2' />
             </div>
-          </div>
+          </div> */}
         </SwiperSlide>
         <SwiperSlide className='bg-[#2C2C2C] flex flex-col'>
-          <div className='w-full h-auto grid grid-cols-12'>
+          <div className='w-full grid grid-cols-12'>
+            {products.map((product, index) => {
+              return (
+                <div key={index} className={`col-span-${product.col * 2} md:col-span-${product.col} `} style={{ zIndex: 999 }}>
+                  <div className='h-shelfHeight flex items-end'>
+                    {Array.from({ length: product.col }, (p, i) => (
+                      <img key={i} src={product.imgUrl} className={`!w-1/${product.col} image-${product.col} max-h-[100%] `} />))}
+                  </div>
+                  <div className={`h-shelfWidth w-full bg-[#BAAD94] flex items-center justify-center shadow-3xl`} >
+                    {product.name} ${product.price}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+          {/* <div className='w-full h-auto grid grid-cols-12'>
             <div className='col-span-6 md:col-span-3  flex items-end border-b-[20px] border-[#BAAD94] border-solid'>
               <img src={AxeBlue} className='!object-contain !h-3/4 !w-1/2' />
               <img src={AxeBlue} className='!object-contain !h-3/4 !w-1/2' />
@@ -126,8 +212,6 @@ export default function App() {
               <img src={Loreal} className='!object-contain !h-3/4 !w-1/2' />
               <img src={Loreal} className='!object-contain !h-3/4 !w-1/2' />
               <img src={Loreal} className='!object-contain !h-3/4 !w-1/2' />
-              {/* <img src={Loreal} className='!w-[!h-auto -translate-x-[90%]' /> */}
-              {/* <img src={Loreal} className=' !h-auto -translate-x-[120%]' /> */}
             </div>
             <div className='col-span-4 md:col-span-2 flex items-end border-b-[20px] border-[#BAAD94] border-solid'>
               <img src={NiveaWhite} className='!object-contain !h-3/4 !w-1/2' />
@@ -163,7 +247,7 @@ export default function App() {
               <img src={Loreal} className='!object-contain !h-3/4 !w-1/2' />
               <img src={Loreal} className='!object-contain !h-3/4 !w-1/2' />
             </div>
-          </div>
+          </div> */}
         </SwiperSlide>
       </Swiper>
     </div>

@@ -5,7 +5,17 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      height : {
+        'shelfHeight' : '300px',
+        'productgap' : '50px',
+        'shelfWidth' : '2rem',
+        '1/4' : '25%'
+      },
+      boxShadow: {
+        '3xl': '0 2rem 40px 0 black;',
+      }
+    },
   },
   plugins: [],
 }
