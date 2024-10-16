@@ -107,7 +107,7 @@ export default function App() {
                   onOpenChange: setIsOpen,
                   middleware: [
                     shift(),
-                    offset(8), 
+                    offset(8),
                     autoPlacement(),
                   ],
                 });
@@ -121,8 +121,7 @@ export default function App() {
                 return (
                   <>
                     <div
-                      key={index}
-                      className={`col-span-${product.col * 2} md:col-span-${product.col} `}
+                      className={`${product.col === 2 && 'col-span-4 md:col-span-2'} ${product.col === 3 && 'col-span-6 md:col-span-3'} ${product.col === 4 && 'col-span-8 md:col-span-4'}`}
                       ref={refs.setReference}
                       {...getReferenceProps({
                         onMouseEnter: () => setIsOpen(true),
@@ -131,7 +130,7 @@ export default function App() {
                     >
                       <div className='h-[120px] md:h-shelfHeight flex items-end'>
                         {Array.from({ length: product.col }, (p, i) => (
-                          <img key={i} src={product.imgUrl} className={`!w-1/${product.col} image-${product.col} max-h-[100%]`} alt="product" />
+                          <img key={i} src={product.imgUrl} className={`${product.col === 2 && '!w-1/2'} ${product.col === 3 && '!w-1/3'} ${product.col === 4 && '!w-1/4'} image-${product.col} max-h-[100%]`} alt={product} />
                         ))}
                       </div>
                       <div className={`h-shelfWidth w-full bg-[#BAAD94] flex items-center justify-center shadow-3xl text-xs md:text-lg`}>
@@ -169,7 +168,7 @@ export default function App() {
                   onOpenChange: setIsOpen,
                   middleware: [
                     shift(),
-                    offset(8), 
+                    offset(8),
                     autoPlacement(),
                   ],
                 });
@@ -183,8 +182,7 @@ export default function App() {
                 return (
                   <>
                     <div
-                      key={index}
-                      className={`col-span-${product.col * 2} md:col-span-${product.col} `}
+                      className={`${product.col === 2 && 'col-span-4 md:col-span-2'} ${product.col === 3 && 'col-span-6 md:col-span-3'} ${product.col === 4 && 'col-span-8 md:col-span-4'}`}
                       ref={refs.setReference}
                       {...getReferenceProps({
                         onMouseEnter: () => setIsOpen(true),
@@ -193,7 +191,7 @@ export default function App() {
                     >
                       <div className='h-[120px] md:h-shelfHeight flex items-end'>
                         {Array.from({ length: product.col }, (p, i) => (
-                          <img key={i} src={product.imgUrl} className={`!w-1/${product.col} image-${product.col} max-h-[100%]`} alt="product" />
+                          <img key={i} src={product.imgUrl} className={`${product.col === 2 && '!w-1/2'} ${product.col === 3 && '!w-1/3'} ${product.col === 4 && '!w-1/4'} image-${product.col} max-h-[100%]`} alt={product} />
                         ))}
                       </div>
                       <div className={`h-shelfWidth w-full bg-[#BAAD94] flex items-center justify-center shadow-3xl text-xs md:text-lg`}>
