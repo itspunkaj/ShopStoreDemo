@@ -85,10 +85,10 @@ const products = [
 export default function App() {
   return (
     <div className='h-[100lvh]'>
-      <div className='absolute top-5 left-10 z-50 bg-yellow-400 rounded-full p-2 shadow-2xl shadow-black'>
-        <img src={EIcon} alt='icon' className='md:h-16 md:w-16 h-8 w-8' />
+      <div className='absolute top-5 left-5 z-50 bg-yellow-400 rounded-full p-2 shadow-2xl shadow-black'>
+        <img src={EIcon} alt='icon' className='lg:h-16 lg:w-16 h-8 w-8' />
       </div>
-      <div className='absolute top-5 right-10 z-50 bg-yellow-400 rounded-full p-2 shadow-2xl shadow-black'>
+      <div className='absolute top-5 right-5 z-50 bg-yellow-400 rounded-full p-2 shadow-2xl shadow-black'>
         <img src={searchIcon} alt='icon' className='h-5 w-5' />
       </div>
       <div className='absolute bottom-0 left-[50%] -translate-x-[50%] z-50 rounded-t-full bg-yellow-400 p-2 shadow-2xl shadow-black'>
@@ -121,14 +121,14 @@ export default function App() {
                 return (
                   <>
                     <div
-                      className={`${product.col === 2 && 'col-span-4 md:col-span-2'} ${product.col === 3 && 'col-span-6 md:col-span-3'} ${product.col === 4 && 'col-span-8 md:col-span-4'}`}
+                      className={`${product.col === 2 && 'col-span-4 sm:col-span-2'} ${product.col === 3 && 'col-span-6 sm:col-span-3'} ${product.col === 4 && 'col-span-8 sm:col-span-4'}`}
                       ref={refs.setReference}
                       {...getReferenceProps({
                         onMouseEnter: () => setIsOpen(true),
                         onMouseLeave: () => setIsOpen(false),
                       })}
                     >
-                      <div className='h-[120px] md:h-shelfHeight flex items-end'>
+                      <div className='h-[125px] lg:h-[250px] flex items-end'>
                         {Array.from({ length: product.col }, (p, i) => (
                           <img key={i} src={product.imgUrl} className={`${product.col === 2 && '!w-1/2'} ${product.col === 3 && '!w-1/3'} ${product.col === 4 && '!w-1/4'} image-${product.col} max-h-[100%]`} alt={product} />
                         ))}
@@ -182,14 +182,14 @@ export default function App() {
                 return (
                   <>
                     <div
-                      className={`${product.col === 2 && 'col-span-4 md:col-span-2'} ${product.col === 3 && 'col-span-6 md:col-span-3'} ${product.col === 4 && 'col-span-8 md:col-span-4'}`}
+                      className={`${product.col === 2 && 'col-span-4 sm:col-span-2'} ${product.col === 3 && 'col-span-6 sm:col-span-3'} ${product.col === 4 && 'col-span-8 sm:col-span-4'}`}
                       ref={refs.setReference}
                       {...getReferenceProps({
                         onMouseEnter: () => setIsOpen(true),
                         onMouseLeave: () => setIsOpen(false),
                       })}
                     >
-                      <div className='h-[120px] md:h-shelfHeight flex items-end'>
+                      <div className='h-[125px] lg:h-[250px] flex items-end'>
                         {Array.from({ length: product.col }, (p, i) => (
                           <img key={i} src={product.imgUrl} className={`${product.col === 2 && '!w-1/2'} ${product.col === 3 && '!w-1/3'} ${product.col === 4 && '!w-1/4'} image-${product.col} max-h-[100%]`} alt={product} />
                         ))}
