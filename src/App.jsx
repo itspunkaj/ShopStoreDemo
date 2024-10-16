@@ -84,7 +84,7 @@ const products = [
 
 export default function App() {
   return (
-    <div className='h-dvh'>
+    <div className='h-svh'>
       <div className='absolute top-5 left-5 z-50 bg-yellow-400 rounded-full p-2 shadow-2xl shadow-black'>
         <img src={EIcon} alt='icon' className='lg:h-16 lg:w-16 h-8 w-8' />
       </div>
@@ -94,7 +94,7 @@ export default function App() {
       <div className='absolute bottom-0 left-[50%] -translate-x-[50%] z-50 rounded-t-full bg-yellow-400 p-2 shadow-2xl shadow-black'>
         <img src={cartIcon} alt='icon' className='h-8 w-16' />
       </div>
-      <Swiper navigation={true} modules={[Navigation]} className="mySwiper h-dvh" loop={true} slidesPerView={1} >
+      <Swiper navigation={true} modules={[Navigation]} className="mySwiper h-svh" loop={true} slidesPerView={1} >
         <SwiperSlide className='bg-[#2C2C2C] flex flex-col'>
           <div className='w-full grid grid-cols-12'>
             {products.map((product, index) => {
