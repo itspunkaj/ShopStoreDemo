@@ -4,6 +4,9 @@
   margin: 0 auto;
   text-align: center;
 }
+::after, ::before {
+  border-color: transparent;
+}
 
 #app {
   height: 100%;
@@ -45,7 +48,9 @@ body {
   width: 40px;
   border-radius: 50%;
   background-color: #facc15;
-  box-shadow: 0 0 1rem 0 black;
+  --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
 }
 
 .swiper-button-next::after,

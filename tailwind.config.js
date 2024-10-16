@@ -17,5 +17,10 @@ export default {
       }
     },
   },
+  options: {
+    safelist: [
+      /^col-span-/ // Ensure Tailwind doesn't purge `col-span-*` classes
+    ],
+  },
   plugins: [],
 }
