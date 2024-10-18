@@ -14,13 +14,13 @@ export default {
       },
       boxShadow: {
         '3xl': '0 2rem 40px 0 black;',
+      },
+      colors : {
+        'primaryYellow' : '#f9e207',
+        'primaryBlue' : '#046cbb'
       }
     },
   },
-  options: {
-    safelist: [
-      /^col-span-/ // Ensure Tailwind doesn't purge `col-span-*` classes
-    ],
-  },
+  options: {},
   plugins: [],
 }
