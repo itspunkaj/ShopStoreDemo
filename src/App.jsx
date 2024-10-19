@@ -404,7 +404,7 @@ useEffect(() => {
 }, [products]);
 
   return (
-    <div className='h-svh'>
+    <div className='h-dvh relative'>
       <div className='absolute top-1 lg:top-5 left-1 lg:left-5 z-50 shadow-2xl shadow-black'>
         <img src={EIcon} alt='icon' className='lg:w-16 w-8' />
       </div>
