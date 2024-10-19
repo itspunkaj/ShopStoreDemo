@@ -419,7 +419,7 @@ useEffect(() => {
         {products.map((page, i) => {
           return (
             <SwiperSlide key={i} className='bg-[#2C2C2C] flex flex-col'>
-              <Swiper navigation={true} modules={[Navigation]} direction='vertical' className="mySwiper h-svh" loop={true} >
+              <Swiper direction='vertical' className="mySwiper h-svh" loop={true} >
                 {page.sections.map((verticalSection, j) => {
                   return (
                     <SwiperSlide key={j} className='bg-[#2C2C2C] flex flex-col' >
