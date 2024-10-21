@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import './App.css'
+
+import { autoPlacement, autoUpdate, useClick, useFloating, useInteractions } from '@floating-ui/react';
 
 // import required modules
 import { Navigation } from 'swiper/modules';
@@ -381,27 +383,27 @@ const products = [
 export default function App() {
   const [animatedElements, setAnimatedElements] = useState([]);
 
-useEffect(() => {
-  const interval = setInterval(() => {
-    const updatedAnimatedItems = products.flatMap(page =>
-      page.sections.flatMap(section =>
-        section.items
-          .filter(item => item.newLaunch)
-          .map(item => item.productId)
-      )
-    );
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     const updatedAnimatedItems = products.flatMap(page =>
+  //       page.sections.flatMap(section =>
+  //         section.items
+  //           .filter(item => item.newLaunch)
+  //           .map(item => item.productId)
+  //       )
+  //     );
 
-    setAnimatedElements(updatedAnimatedItems);
+  //     setAnimatedElements(updatedAnimatedItems);
 
-    setTimeout(() => {
-      setAnimatedElements([]);
-    }, 1000);
+  //     setTimeout(() => {
+  //       setAnimatedElements([]);
+  //     }, 1000);
 
-  }, 3000);
+  //   }, 3000);
 
-  return () => clearInterval(interval); // Cleanup interval on unmount
+  //   return () => clearInterval(interval); // Cleanup interval on unmount
 
-}, [products]);
+  // }, [products]);
 
   return (
     <div className='h-dvh relative'>
@@ -426,39 +428,96 @@ useEffect(() => {
                       <div className='w-full grid grid-cols-12'>
                         {
                           verticalSection.items.map((product, k) => {
-                            return (
-                              <div key={k}
-                                className={`${product.col === 2 && 'col-span-4 sm:col-span-2'} ${product.col === 3 ? 'col-span-6 sm:col-span-3' : ''} ${product.col === 4 ? 'col-span-8 sm:col-span-4' : ''} `}
-                              >
-                                <div className='h-[125px] lg:h-shelfHeight flex items-end relative'>
-                                  {
-                                    product.discount &&
-                                    <div className='discountOverlay absolute top-0 left-0 h-full w-full bg-green-500/30 border-2 flex flex-col justify-center items-center border-green-500 '>
-                                      <span className='text-white text-lg'>
-                                        {product.discount} Discount
-                                      </span>
+                            const HoverComponent = () => {
+                              const [isOpen, setIsOpen] = useState(false);
+                              const popupRef = useRef(null);
+
+                              const { refs, floatingStyles, context } = useFloating({
+                                open: isOpen,
+                                onOpenChange: setIsOpen,
+                                middleware: [
+                                  autoPlacement()
+                                ]
+                              })
+
+                              const click = useClick(context, {
+                                toggle: true
+                              });
+
+                              const { getReferenceProps, getFloatingProps } = useInteractions([click]);
+
+                              const handleClickOutside = (event) => {
+                                if (popupRef.current && !popupRef.current.contains(event.target) && !refs.reference.current.contains(event.target)) {
+                                  setIsOpen(false);
+                                }
+                              };
+
+                              useEffect(() => {
+                                if (isOpen) {
+                                  document.addEventListener('click', handleClickOutside);
+                                } else {
+                                  document.removeEventListener('click', handleClickOutside);
+                                }
+
+                                return () => document.removeEventListener('click', handleClickOutside);
+                              }, [isOpen]);
+
+
+                              return (
+                                <>
+                                  <div
+                                    className={`${product.col === 2 && 'col-span-4 sm:col-span-2'} ${product.col === 3 ? 'col-span-6 sm:col-span-3' : ''} ${product.col === 4 ? 'col-span-8 sm:col-span-4' : ''} `}
+                                    ref={refs.setReference}
+                                    {...getReferenceProps()}
+                                  >
+                                    <div className='h-[125px] lg:h-shelfHeight flex items-end relative'>
+                                      {
+                                        product.discount &&
+                                        <div className='discountOverlay absolute top-0 left-0 h-full w-full bg-green-500/30 border-2 flex flex-col justify-center items-center border-green-500 '>
+                                          <span className='text-white text-lg'>
+                                            {product.discount} Discount
+                                          </span>
+                                        </div>
+                                      }
+                                      {Array.from({ length: product.col }, (p, index) => {
+                                        return (
+                                          <img key={k + index} src={product.imgUrl} className={`${product.col === 2 ? '!w-1/2' : ''} ${product.col === 3 ? '!w-1/3' : ''} ${product.col === 4 ? '!w-1/4' : ''} image-${product.col} !max-h-[100%] object-bottom`} alt={product.name} />
+                                        )
+                                      })}
                                     </div>
-                                  }
-                                  {Array.from({ length: product.col }, (p, index) => {
-                                    return (
-                                      <img key={k + index} src={product.imgUrl} className={`${product.col === 2 ? '!w-1/2' : ''} ${product.col === 3 ? '!w-1/3' : ''} ${product.col === 4 ? '!w-1/4' : ''} image-${product.col} ${animatedElements.includes(product.productId) ? 'shakeAnimation' : ''} max-h-[100%]`} alt={product.name} />
-                                    )
-                                  })}
-                                </div>
-                                <div className={`h-shelfWidth w-full bg-[#BAAD94] flex items-center justify-center shadow-3xl relative`}>
-                                  {
-                                    product.newLaunch && 
-                                    <div className={`h-full absolute left-0 lg:left-2`}>
-                                      <img className={`h-shelfWidth w-6 lg:w-10 object-cover`} src={newLaunch}/>
+                                    <div className={`h-shelfWidth w-full bg-[#BAAD94] flex items-center justify-center shadow-3xl relative`}>
+                                      {
+                                        product.newLaunch &&
+                                        <div className={`h-full absolute left-0 lg:left-2`}>
+                                          <img className={`h-shelfWidth w-6 lg:w-10 object-cover`} src={newLaunch} />
+                                        </div>
+                                      }
+                                      <div className={`bg-slate-50 w-36 border border-slate-400 rounded-md flex flex-col items-center justify-center`}>
+                                        <span className={`text-[10px]`}>{product.name}</span>
+                                        <span className={`text-xs`}>${product.price}</span>
+                                      </div>
                                     </div>
-                                  }
-                                  <div className={`bg-slate-50 w-36 border border-slate-400 rounded-md flex flex-col items-center justify-center`}>
-                                    <span className={`text-[10px]`}>{product.name}</span>
-                                    <span className={`text-xs`}>${product.price}</span>
                                   </div>
-                                </div>
-                              </div>
-                            )
+                                  {isOpen && (
+                                    <div
+                                      ref={(element)=>{
+                                        refs.setFloating(element);
+                                        popupRef.current = element;
+                                      }}
+                                      style={floatingStyles}
+                                      {...getFloatingProps()}
+                                      className="bg-white p-4 shadow-lg rounded-lg z-10"
+                                    >
+                                      <div className='text-sm'>{product.name}</div>
+                                      <div className='sm'>${product.price}</div>
+                                      <div><button className='rounded-lg bg-slate-400 px-2 py-1 text-sm'>Add to cart</button></div>
+                                    </div>
+                                  )}
+                                </>
+                              )
+                            }
+
+                            return <HoverComponent key={k} />
                           })}
                       </div>
                     </SwiperSlide>
