@@ -19,6 +19,7 @@ import LorealShamp from './assets/LorealShamp.svg';
 import TresemmeBlack from './assets/TresemmeBlack.svg';
 import AxeBlack from './assets/AxeBlack.svg';
 import searchIcon from './assets/searchIcon.svg';
+import hamburgerIcon from '/hamburger.svg'
 
 import EIcon from './assets/Screenshot 2024-10-18 123257.png';
 import newLaunch from './assets/2.svg'
@@ -144,8 +145,11 @@ export default function App() {
       <div className='absolute top-1 lg:top-5 left-1 lg:left-5 z-50 shadow-2xl shadow-black'>
         <img src={EIcon} alt='icon' className='lg:w-16 w-8' />
       </div>
-      <div className='absolute top-5 right-5 z-50 bg-[#f9e207] rounded-full p-2 shadow-2xl shadow-black'>
+      <div className='absolute max-lg:bottom-1 lg:top-5 right-16 z-50 bg-[#f9e207] rounded-full p-2 shadow-2xl shadow-black'>
         <img src={searchIcon} alt='icon' className='h-5 w-5' />
+      </div>
+      <div className='absolute max-lg:bottom-1 lg:top-5 right-5 z-50 bg-[#f9e207] rounded-full p-2 shadow-2xl shadow-black'>
+        <img src={hamburgerIcon} alt='icon' className='h-5 w-5' />
       </div>
       <Cart />
 
@@ -162,8 +166,6 @@ export default function App() {
                         {
                           verticalSection.items.map((product, k) => {
                             const HoverComponent = () => {
-
-
                               return (
                                 <>
                                   <div
@@ -200,11 +202,11 @@ export default function App() {
                                     {selectedProduct == product.productId && (
                                       <div
                                         ref={popupRef}
-                                        className="bg-white p-4 rounded-lg z-10 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 h-1/2 w-3/4 flex justify-center items-center flex-col shadow-2xl"
+                                        className="bg-white p-4 rounded-lg z-10 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 h-1/2 w-3/4 flex justify-center items-center flex-col shadow-2xl border-[1px] border-gray-400"
                                       >
                                         <div className='text-sm'>{product.name}</div>
                                         <div className='sm'>${product.price}</div>
-                                        <div><button className='rounded-lg bg-slate-400 px-2 py-1 text-sm'>Add to cart</button></div>
+                                        <div><button className='rounded-lg bg-slate-300 px-2 py-1 text-sm'>Add to cart</button></div>
                                       </div>
                                     )}
                                   </div>
