@@ -1,104 +1,27 @@
 import { useEffect, useRef, useState } from 'react';
-// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import './App.css'
-
-import { autoPlacement, useClick, useFloating, useInteractions } from '@floating-ui/react';
-
-// import required modules
 import { Navigation } from 'swiper/modules';
 
-import AxeBlue from './assets/AxeBlue.svg';
-import Loreal from './assets/Loreal.svg';
-import NiveaWhite from './assets/NiveaWhite.svg';
-import NiveaBlue from './assets/NiveaBlue.svg';
-import LorealShamp from './assets/LorealShamp.svg';
-import TresemmeBlack from './assets/TresemmeBlack.svg';
-import AxeBlack from './assets/AxeBlack.svg';
 import searchIcon from './assets/searchIcon.svg';
 import hamburgerIcon from '/hamburger.svg'
-
 import EIcon from './assets/Screenshot 2024-10-18 123257.png';
 import newLaunch from './assets/2.svg'
 import Cart from './Cart';
+import { useItemsBoughtStore, usePriceStore } from './store/store';
 
-const products = [
-  {
-    page: 1,
-    sections: [
-      {
-        id: 1,
-        items: [
-          { productId: 1, name: 'Loreal', price: 1.99, imgUrl: Loreal, col: 3, discount: '50%', newLaunch: false },
-          { productId: 2, name: 'Axe Blue', price: 1.99, imgUrl: AxeBlue, col: 3, discount: null, newLaunch: true },
-          { productId: 3, name: 'Nivea White', price: 1.49, imgUrl: NiveaWhite, col: 2, discount: null, newLaunch: false },
-          { productId: 4, name: 'Nivea Blue', price: 1.69, imgUrl: NiveaBlue, col: 2, discount: null, newLaunch: false },
-          { productId: 5, name: 'Loreal Shampoo', price: 1.69, imgUrl: LorealShamp, col: 2, discount: null, newLaunch: false },
-          { productId: 6, name: 'Axe Black', price: 1.99, imgUrl: AxeBlack, col: 4, discount: null, newLaunch: false },
-          { productId: 7, name: 'Tresemme Black', price: 2.19, imgUrl: TresemmeBlack, col: 2, discount: '20%', newLaunch: false },
-          { productId: 8, name: 'Axe Black', price: 1.99, imgUrl: AxeBlack, col: 3, discount: null, newLaunch: false },
-          { productId: 9, name: 'Loreal', price: 1.99, imgUrl: Loreal, col: 3, discount: null, newLaunch: false },
-        ]
-      },
-      {
-        id: 2,
-        items: [
-          { productId: 10, name: 'Loreal', price: 1.99, imgUrl: Loreal, col: 3, discount: '50%', newLaunch: false },
-          { productId: 11, name: 'Axe Blue', price: 1.99, imgUrl: AxeBlue, col: 3, discount: null, newLaunch: true },
-          { productId: 12, name: 'Nivea White', price: 1.49, imgUrl: NiveaWhite, col: 2, discount: null, newLaunch: false },
-          { productId: 13, name: 'Nivea Blue', price: 1.69, imgUrl: NiveaBlue, col: 2, discount: null, newLaunch: false },
-          { productId: 14, name: 'Loreal Shampoo', price: 1.69, imgUrl: LorealShamp, col: 2, discount: null, newLaunch: false },
-          { productId: 15, name: 'Axe Black', price: 1.99, imgUrl: AxeBlack, col: 4, discount: null, newLaunch: false },
-          { productId: 16, name: 'Tresemme Black', price: 2.19, imgUrl: TresemmeBlack, col: 2, discount: '20%', newLaunch: false },
-          { productId: 17, name: 'Axe Black', price: 1.99, imgUrl: AxeBlack, col: 3, discount: null, newLaunch: false },
-          { productId: 18, name: 'Loreal', price: 1.99, imgUrl: Loreal, col: 3, discount: null, newLaunch: false },
-        ]
-      }
-    ]
-  },
-  {
-    page: 2,
-    sections: [
-      {
-        id: 1,
-        items: [
-          { productId: 19, name: 'Loreal', price: 1.99, imgUrl: Loreal, col: 3, discount: '50%', newLaunch: false },
-          { productId: 20, name: 'Axe Blue', price: 1.99, imgUrl: AxeBlue, col: 3, discount: null, newLaunch: true },
-          { productId: 21, name: 'Nivea White', price: 1.49, imgUrl: NiveaWhite, col: 2, discount: null, newLaunch: false },
-          { productId: 22, name: 'Nivea Blue', price: 1.69, imgUrl: NiveaBlue, col: 2, discount: null, newLaunch: false },
-          { productId: 23, name: 'Loreal Shampoo', price: 1.69, imgUrl: LorealShamp, col: 2, discount: null, newLaunch: false },
-          { productId: 24, name: 'Axe Black', price: 1.99, imgUrl: AxeBlack, col: 4, discount: null, newLaunch: false },
-          { productId: 25, name: 'Tresemme Black', price: 2.19, imgUrl: TresemmeBlack, col: 2, discount: '20%', newLaunch: false },
-          { productId: 26, name: 'Axe Black', price: 1.99, imgUrl: AxeBlack, col: 3, discount: null, newLaunch: false },
-          { productId: 27, name: 'Loreal', price: 1.99, imgUrl: Loreal, col: 3, discount: null, newLaunch: false },
-        ]
-      },
-      {
-        id: 2,
-        items: [
-          { productId: 28, name: 'Loreal', price: 1.99, imgUrl: Loreal, col: 3, discount: '50%', newLaunch: false },
-          { productId: 29, name: 'Axe Blue', price: 1.99, imgUrl: AxeBlue, col: 3, discount: null, newLaunch: true },
-          { productId: 30, name: 'Nivea White', price: 1.49, imgUrl: NiveaWhite, col: 2, discount: null, newLaunch: false },
-          { productId: 31, name: 'Nivea Blue', price: 1.69, imgUrl: NiveaBlue, col: 2, discount: null, newLaunch: false },
-          { productId: 32, name: 'Loreal Shampoo', price: 1.69, imgUrl: LorealShamp, col: 2, discount: null, newLaunch: false },
-          { productId: 33, name: 'Axe Black', price: 1.99, imgUrl: AxeBlack, col: 4, discount: null, newLaunch: false },
-          { productId: 34, name: 'Tresemme Black', price: 2.19, imgUrl: TresemmeBlack, col: 2, discount: '20%', newLaunch: false },
-          { productId: 35, name: 'Axe Black', price: 1.99, imgUrl: AxeBlack, col: 3, discount: null, newLaunch: false },
-          { productId: 36, name: 'Loreal', price: 1.99, imgUrl: Loreal, col: 3, discount: null, newLaunch: false },
-        ]
-      }
-    ]
-  }
-];
+import { products } from './Products';
 
 
 export default function App() {
   const [animatedElements, setAnimatedElements] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const popupRef = useRef(null);
+
+  const updatePrice = usePriceStore((state) => state.addPrice);
+  const boughtItems = useItemsBoughtStore((state) => state.products);
+  const updateBoughtItems = useItemsBoughtStore((state) => state.addProduct);
 
 
   useEffect(() => {
@@ -107,7 +30,7 @@ export default function App() {
         page.sections.flatMap(section =>
           section.items
             .filter(item => item.newLaunch)
-            .map(item => item.productId)
+            .map(item => item.id)
         )
       );
 
@@ -122,6 +45,11 @@ export default function App() {
     return () => clearInterval(interval);
   }, [products]);
 
+  const handleSelectProduct = (pId) => {
+    setSelectedProduct(pId);
+  }
+  const popupRef = useRef(null);
+
   const handleClickOutside = (event) => {
     // Check if the click is outside the popup
     if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -130,15 +58,13 @@ export default function App() {
   };
   useEffect(() => {
     if (selectedProduct !== null) {
+      console.log("Unslected Product.")
       document.addEventListener('click', handleClickOutside);
     } else {
       document.removeEventListener('click', handleClickOutside);
     }
   }, [])
 
-  const handleSelectProduct = (pId) => {
-    setSelectedProduct(pId);
-  }
 
   return (
     <div className='h-dvh relative'>
@@ -166,11 +92,12 @@ export default function App() {
                         {
                           verticalSection.items.map((product, k) => {
                             const HoverComponent = () => {
+
                               return (
                                 <>
                                   <div
                                     className={`${product.col === 2 && 'col-span-4 sm:col-span-2'} ${product.col === 3 ? 'col-span-6 sm:col-span-3' : ''} ${product.col === 4 ? 'col-span-8 sm:col-span-4' : ''} relative`}
-                                    onClick={() => { handleSelectProduct(product.productId) }}
+                                    onClick={() => { handleSelectProduct(product.id) }}
                                   >
                                     <div className='h-[125px] lg:h-shelfHeight flex items-end relative'>
                                       {
@@ -183,7 +110,7 @@ export default function App() {
                                       }
                                       {Array.from({ length: product.col }, (p, index) => {
                                         return (
-                                          <img data-testid={"product"} key={k + index} src={product.imgUrl} className={`${product.col === 2 ? '!w-1/2' : ''} ${product.col === 3 ? '!w-1/3' : ''} ${product.col === 4 ? '!w-1/4' : ''} image-${product.col} !max-h-[100%] object-bottom ${animatedElements.includes(product.productId) ? 'shakeAnimation' : ''}`} alt={product.name} />
+                                          <img data-testid={"product"} key={k + index} src={product.imgUrl} className={`${product.col === 2 ? '!w-1/2' : ''} ${product.col === 3 ? '!w-1/3' : ''} ${product.col === 4 ? '!w-1/4' : ''} image-${product.col} !max-h-[100%] object-bottom ${animatedElements.includes(product.id) ? 'shakeAnimation' : ''}`} alt={product.name} />
                                         )
                                       })}
                                     </div>
@@ -199,14 +126,15 @@ export default function App() {
                                         <span className={`text-xs`}>${product.price}</span>
                                       </div>
                                     </div>
-                                    {selectedProduct == product.productId && (
+                                    {selectedProduct == product.id && (
                                       <div
                                         ref={popupRef}
                                         className="bg-white p-4 rounded-lg z-10 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 h-1/2 w-3/4 flex justify-center items-center flex-col shadow-2xl border-[1px] border-gray-400"
                                       >
                                         <div className='text-sm'>{product.name}</div>
                                         <div className='sm'>${product.price}</div>
-                                        <div><button className='rounded-lg bg-slate-300 px-2 py-1 text-sm'>Add to cart</button></div>
+                                        <div><button className='rounded-lg bg-slate-300 px-2 py-1 text-sm' onClick={() => { updatePrice(product.price); updateBoughtItems(product) }}>Add to cart</button>
+                                        </div>
                                       </div>
                                     )}
                                   </div>
