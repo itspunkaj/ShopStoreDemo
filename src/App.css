@@ -44,8 +44,8 @@ body {
 
 .swiper-button-next,
 .swiper-button-prev {
-  height: 40px;
-  width: 40px;
+  height: 40px !important;
+  width: 40px !important;
   border-radius: 50%;
   background-color: #f9e207;
   --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
