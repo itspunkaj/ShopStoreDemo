@@ -13,6 +13,7 @@ import Cart from './Cart';
 import { useItemsBoughtStore, usePriceStore } from './store/store';
 
 import { products } from './Products';
+import barCode from '/barcode.png';
 
 
 export default function Store() {
@@ -99,7 +100,7 @@ export default function Store() {
                                     className={`${product.col === 2 && 'col-span-4 sm:col-span-2'} ${product.col === 3 ? 'col-span-6 sm:col-span-3' : ''} ${product.col === 4 ? 'col-span-8 sm:col-span-4' : ''} relative`}
                                     onClick={() => { handleSelectProduct(product.id) }}
                                   >
-                                    <div className='h-[125px] lg:h-shelfHeight flex items-end relative overflow-hidden mx-[2px]'>
+                                    <div className='h-[130px] lg:h-shelfHeight flex items-end relative overflow-hidden mx-[2px]'>
                                       {
                                         product.discount &&
                                         <div className='discountOverlay absolute top-0 left-0 h-full w-full bg-green-500/20 border-2 flex flex-col justify-center items-center border-green-500 '>
@@ -114,17 +115,27 @@ export default function Store() {
                                         )
                                       })}
                                     </div>
-                                    <div className={`h-shelfWidth w-full bg-[#BAAD94] flex items-center justify-center shadow-3xl relative`}>
+                                    <div className={`max-lg:h-shelfWidth h-[2rem]  w-full bg-[#BAAD94] flex items-center justify-center shadow-3xl relative`}>
 
-                                      <div className={`bg-slate-50 w-64 max-w-full z-50 border border-slate-400 rounded-md flex flex-col items-center justify-center relative`}>
+                                      <div className={`bg-slate-50 h-full w-44 z-50 border border-slate-400 rounded-md flex items-center justify-center relative`}>
                                         {
                                           product.newLaunch &&
-                                          <div className={`h-full absolute left-0`}>
-                                            <img className={`h-shelfWidth w-6 lg:w-10 object-cover`} src={newLaunch} />
+                                          <div className={`h-full absolute left-0 lg:top-1`}>
+                                            <img className={`h-shelfWidth w-6 lg:w-8 object-cover`} src={newLaunch} />
                                           </div>
                                         }
-                                        <span className={`text-[10px]`}>{product.name}</span>
-                                        <span className={`text-xs`}>${product.price}</span>
+                                        <div className={`max-lg:text-[8px] text-xs px-1 h-full w-[80%]`}>
+                                          <span>
+                                            {product.name}
+                                          </span>
+                                          <div className='flex justify-center'>
+
+                                            <img src={barCode} className={`object-cover h-3 w-16 max-lg:hidden`} />
+                                          </div>
+
+
+                                        </div>
+                                        <span className={`max-lg:text-sm px-1`}>${product.price}</span>
                                       </div>
                                     </div>
                                     {selectedProduct == product.id && (

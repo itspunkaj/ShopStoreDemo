@@ -9,7 +9,7 @@ export default {
       height : {
         'shelfHeight' : '250px',
         'productgap' : '50px',
-        'shelfWidth' : '2rem',
+        'shelfWidth' : '1.5rem',
         '1/4' : '25%'
       },
       boxShadow: {
