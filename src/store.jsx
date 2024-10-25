@@ -146,7 +146,7 @@ export default function Store() {
                                 <>
                                   <div
                                     className={`${product.col === 2 && 'col-span-4 sm:col-span-2'} ${product.col === 3 ? 'col-span-6 sm:col-span-3' : ''} ${product.col === 4 ? 'col-span-8 sm:col-span-4' : ''} ${isDragging ? 'opactiy-40' : 'opacity-100'}`}
-                                    onClick={() => {
+                                    onDoubleClick={() => {
                                       handleSelectProduct(product.id); // Trigger only if not dragging
                                     }}
                                   >
@@ -217,16 +217,16 @@ export default function Store() {
                                           <div className='flex-1 text-start text-xs lg:text-sm h-auto flex items-center py-3'>
                                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim vseniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                                           </div>
-                                          <div className='flex items-center'>
+                                          <div className='flex items-center '>
                                             <div className='max-lg:text-base'>${product.price}</div>
                                             {product.productId in boughtItems && boughtItems[product.productId] > 0 ?
-                                              <div className='rounded-lg bg-slate-300   py-1 lg:py-2 text-sm mx-5'>
-                                                <button className='w-5 h-5 border-r' onClick={() => { removePrice(product.price); removeBoughtItems(product.productId) }}>-</button>
-                                                <span className='px-1 text-sm'>{boughtItems[product.productId]} Items</span>
-                                                <button className='w-5 h-5 border-l' onClick={() => { addPrice(product.price); updateBoughtItems(product.productId) }}>+</button>
+                                              <div className='rounded-lg bg-primaryYellow text-primaryBlue   py-1 lg:py-2 text-sm mx-5 font-semibold'>
+                                                <button className='w-5 h-5 border-r border-primaryBlue mx-1' onClick={() => { removePrice(product.price); removeBoughtItems(product.productId) }}>-</button>
+                                                <span className='px-1 text-sm mx-2'>{boughtItems[product.productId] > 1 ? (boughtItems[product.productId] + ' Items') : (boughtItems[product.productId] + ' Item')} </span>
+                                                <button className='w-5 h-5 border-l border-primaryBlue mx-1' onClick={() => { addPrice(product.price); updateBoughtItems(product.productId) }}>+</button>
                                               </div>
                                               :
-                                              <button className='rounded-lg bg-slate-300 px-5  py-1 lg:py-2 text-sm mx-5' onClick={() => { addPrice(product.price); updateBoughtItems(product.productId) }}>Add to cart</button>}
+                                              <button className='rounded-lg bg-primaryYellow text-primaryBlue px-5  py-1 lg:py-2 text-sm mx-5 font-semibold' onClick={() => { addPrice(product.price); updateBoughtItems(product.productId) }}>Add to cart</button>}
                                           </div>
                                         </div>
                                         {/* <div className='max-lg:text-[10px] text-sm'>{product.name}</div>
