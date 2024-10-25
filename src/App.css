@@ -82,3 +82,7 @@ body {
 .shakeAnimation {
   animation: shake 1s linear infinite;
 }
+
+.productImage {
+  filter: drop-shadow(-10px 10px 10px #3e3e3e4b);
+}

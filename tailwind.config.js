@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       height : {
-        'shelfHeight' : '250px',
+        'shelfHeight' : '200px',
         'productgap' : '50px',
         'shelfWidth' : '1.5rem',
       },
