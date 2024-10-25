@@ -189,7 +189,7 @@ export default function Store() {
                                             <img className={`h-shelfWidth w-6 lg:w-8 object-cover`} src={newLaunch} />
                                           </div>
                                         }
-                                        <div className={`max-lg:text-[8px] text-xs px-1 h-full w-[80%]`}>
+                                        <div className={`max-lg:text-[10px] text-xs px-1 h-full w-[80%] flex items-center justify-center flex-col`}>
                                           <span>
                                             {product.name}
                                           </span>
