@@ -74,16 +74,6 @@ export default function Store() {
   }
 
 
-  const handleTouchStart =  (pId) => {
-    const currentTime = new Date().getTime();
-    const tapGap = currentTime - lastTap;
-
-    if (tapGap < 300 && tapGap > 0) {
-      handleSelectProduct(pId);
-    }
-
-    setLastTap(currentTime);
-  }
 
   return (
     <div className='h-dvh relative'>
@@ -153,18 +143,63 @@ export default function Store() {
                               //   };
                               // }, [holdTimeout]);
 
+                              const [isLongPress, setIsLongPress] = useState(false);
+                              const longPressTimeout = useRef(null); // To hold the timeout reference
+
+
+
+                              const handleTouchStart = (event, pId) => {
+                                const currentTime = new Date().getTime();
+                                const tapGap = currentTime - lastTap;
+                                setLastTap(currentTime);
+
+                                // Check for double-tap
+                                if (tapGap < 300 && tapGap > 0) {
+                                  handleSelectProduct(pId);
+                                } else {
+                                  // Start long-press timer
+                                  longPressTimeout.current = setTimeout(() => {
+                                    console.log("Long Press started")
+                                    setIsLongPress(true);
+                                  }, 500);
+                                }
+                              };
+
+                              const handleTouchEnd = () => {
+                                clearTimeout(longPressTimeout.current);
+                                setIsLongPress(false); // Reset the long-press state on touch end
+                              };
+
+                              const handleClick= (event,pId) => {
+                                const currentTime = new Date().getTime();
+                                const tapGap = currentTime - lastTap;
+                                setLastTap(currentTime);
+
+                                // Check for double-tap
+                                if (tapGap < 300 && tapGap > 0) {
+                                  handleSelectProduct(pId);
+                                }
+                              }
+
                               return (
                                 <>
                                   <div
                                     className={`${product.col === 2 && 'col-span-4 sm:col-span-2'} ${product.col === 3 ? 'col-span-6 sm:col-span-3' : ''} ${product.col === 4 ? 'col-span-8 sm:col-span-4' : ''} ${isDragging ? 'opactiy-40' : 'opacity-100'}`}
-                                    onDoubleClick={() => {
-                                      handleSelectProduct(product.id); // Trigger only if not dragging
-                                    }}
-                                    onTouchStart={()=>{
-                                      handleTouchStart(product.id);
-                                    }}
                                   >
-                                    <div className='h-[90px] lg:h-shelfHeight flex items-end relative overflow-hidden mx-[2px]'>
+                                    <div className='h-[90px] lg:h-shelfHeight flex items-end relative overflow-hidden mx-[2px]'
+                                      // onDoubleClick={() => {
+                                      //   handleSelectProduct(product.id); // Trigger only if not dragging
+                                      // }}
+                                      // onContextMenu={(e) => e.preventDefault()} // Prevent context menu on this layer too
+                                      // onTouchStart={(event) => handleTouchStart(event, product.id)}
+                                      // onTouchEnd={handleTouchEnd}
+                                      // onTouchMove={(event) => {
+                                      //   if (!isLongPress) {
+                                      //     event.stopPropagation();
+                                      //   }
+                                      // }}
+                                      onClick={(event) => handleClick(event,product.id)}
+                                    >
                                       {
                                         product.discount &&
                                         <div className='discountOverlay absolute top-0 left-0 h-full w-full bg-green-500/20 border-2 flex flex-col justify-center items-center border-green-500 '>
@@ -173,9 +208,7 @@ export default function Store() {
                                           </span>
                                         </div>
                                       }
-                                      <DragPreviewImage connect={preview} src={product.imgUrl} />
                                       <div
-                                        ref={drag}
                                         className="absolute inset-0"
                                       // onMouseDown={handleStartHold} // For desktop mouse
                                       // onMouseUp={handleEndHold}
