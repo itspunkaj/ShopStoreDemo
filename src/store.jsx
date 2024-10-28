@@ -21,6 +21,7 @@ export default function Store() {
   const [animatedElements, setAnimatedElements] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [categoryMenuOpen, setCategoryMenuOpen] = useState(false);
+  const [lastTap, setLastTap] = useState(0);
 
   const addPrice = usePriceStore((state) => state.addPrice);
   const removePrice = usePriceStore((state) => state.removePrice)
@@ -51,13 +52,12 @@ export default function Store() {
   }, []);
 
   const handleSelectProduct = (pId) => {
-    console.log("MEMEME")
+    console.log(`Product with id ${pId} got Selected`);
     setSelectedProduct(pId);
   }
   const popupRef = useRef(null);
 
   const handleClickOutside = () => {
-    console.log("I got clicked.")
     setSelectedProduct('');
   };
   // useEffect(() => {
@@ -73,6 +73,17 @@ export default function Store() {
     setCategoryMenuOpen(!categoryMenuOpen);
   }
 
+
+  const handleTouchStart =  (pId) => {
+    const currentTime = new Date().getTime();
+    const tapGap = currentTime - lastTap;
+
+    if (tapGap < 300 && tapGap > 0) {
+      handleSelectProduct(pId);
+    }
+
+    setLastTap(currentTime);
+  }
 
   return (
     <div className='h-dvh relative'>
@@ -148,6 +159,9 @@ export default function Store() {
                                     className={`${product.col === 2 && 'col-span-4 sm:col-span-2'} ${product.col === 3 ? 'col-span-6 sm:col-span-3' : ''} ${product.col === 4 ? 'col-span-8 sm:col-span-4' : ''} ${isDragging ? 'opactiy-40' : 'opacity-100'}`}
                                     onDoubleClick={() => {
                                       handleSelectProduct(product.id); // Trigger only if not dragging
+                                    }}
+                                    onTouchStart={()=>{
+                                      handleTouchStart(product.id);
                                     }}
                                   >
                                     <div className='h-[90px] lg:h-shelfHeight flex items-end relative overflow-hidden mx-[2px]'>
