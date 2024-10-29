@@ -232,8 +232,15 @@ export default function Store() {
                                             <img className='absolute h-14 w-16 top-0 left-2 z-50 object-cover' src={newLaunch} />}
                                           <img className='mx-auto productImage max-sm:h-[200px] h-full' src={product.imgUrl} alt={product.name} />
                                         </div>
-                                        <div className='flex-1 h-4/5 flex flex-col items-start max-sm:px-6 py-10 px-10'>
-                                          <div className=' w-full text-start font-medium'>{product.name}</div>
+                                        <div className='flex-1 h-4/5 flex flex-col items-start max-sm:px-6 max-sm:py-10 px-10'>
+                                          <div className='flex flex-col w-full'>
+                                            <div className=' w-full text-start font-medium'>{product.name}</div>
+                                            <div className='flex text-[10px] py-1'>
+                                              <span className='px-2 rounded-full border'>Tag 1</span>
+                                              <span className='mx-1 px-2 rounded-full border'>Tag 2</span>
+                                            </div>
+
+                                          </div>
                                           <div className='flex-1 text-start text-xs lg:text-sm h-auto flex items-center py-3'>
                                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim vseniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                                           </div>
