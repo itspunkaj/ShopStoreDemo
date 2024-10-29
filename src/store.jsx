@@ -141,7 +141,7 @@ export default function Store() {
                               //   };
                               // }, [holdTimeout]);
 
-                              const handleClick= (event,pId) => {
+                              const handleClick = (event, pId) => {
                                 const currentTime = new Date().getTime();
                                 const tapGap = currentTime - lastTap;
                                 setLastTap(currentTime);
@@ -169,13 +169,13 @@ export default function Store() {
                                       //     event.stopPropagation();
                                       //   }
                                       // }}
-                                      onClick={(event) => handleClick(event,product.id)}
+                                      onClick={(event) => handleClick(event, product.id)}
                                     >
                                       {
                                         product.discount &&
                                         <div className='discountOverlay absolute top-0 left-0 h-full w-full bg-green-500/20 border-2 flex flex-col justify-center items-center border-green-500 '>
                                           <span className='text-white text-lg'>
-                                            {product.discount} Discount
+                                            {product.discount}% off
                                           </span>
                                         </div>
                                       }
@@ -224,12 +224,12 @@ export default function Store() {
                                         ref={popupRef}
                                         className="bg-white rounded-lg z-50 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 sm:h-4/5 sm:max-h-[350px] w-[80%] max-w-[800px] flex max-sm:flex-col justify-center items-center shadow-2xl border-[1px] border-gray-400 sm:divide-x-2"
                                       >
-                                        <div className='absolute right-1 top-1 cursor-pointer'>
-                                          <img src='/close.svg' className={`h-6`} onClick={(e) => { e.stopPropagation(); handleClickOutside() }} />
+                                        <div className='absolute right-2 top-2 cursor-pointer hover:bg-slate-300 duration-300 rounded-full' onClick={(e) => { e.stopPropagation(); handleClickOutside() }}>
+                                          <img src='/close.svg' className={`h-6`} />
                                         </div>
                                         <div className='max-sm:w-full w-1/3 px-10 max-sm:mt-10  sm:h-4/5 relative '>
-                                          { product.newLaunch && 
-                                            <img className='absolute h-14 w-16 top-0 left-2 z-50 object-cover' src={newLaunch}/>}
+                                          {product.newLaunch &&
+                                            <img className='absolute h-14 w-16 top-0 left-2 z-50 object-cover' src={newLaunch} />}
                                           <img className='mx-auto productImage max-sm:h-[200px] h-full' src={product.imgUrl} alt={product.name} />
                                         </div>
                                         <div className='flex-1 h-4/5 flex flex-col items-start max-sm:p-10 px-10'>
@@ -238,7 +238,10 @@ export default function Store() {
                                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim vseniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                                           </div>
                                           <div className='flex items-center '>
-                                            <div className='max-lg:text-base'>${product.price}</div>
+                                            <div className='max-lg:text-base'>${product.price}
+                                              {product.discount && <>&nbsp;<span className='line-through text-slate-400 text-xs'>${Math.round(((product.price / (100 - product.discount)) * 100) * 100) / 100}</span>
+                                                &nbsp;<span className='text-xs'>({product.discount}% off)</span></>}
+                                            </div>
                                             {product.productId in boughtItems && boughtItems[product.productId] > 0 ?
                                               <div className='rounded-lg bg-primaryYellow text-primaryBlue   py-1 lg:py-2 text-sm mx-5 font-semibold'>
                                                 <button className='w-5 h-5 border-r border-primaryBlue mx-1' onClick={() => { removePrice(product.price); removeBoughtItems(product.productId) }}>-</button>
