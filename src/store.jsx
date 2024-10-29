@@ -14,8 +14,6 @@ import { useItemsBoughtStore, usePriceStore } from './store/store';
 
 import { products } from './Products';
 import barCode from '/barcode.png';
-import { DragPreviewImage, useDrag } from 'react-dnd';
-
 
 export default function Store() {
   const [animatedElements, setAnimatedElements] = useState([]);
@@ -103,20 +101,20 @@ export default function Store() {
                         {
                           verticalSection.items.map((product, k) => {
                             const HoverComponent = () => {
-                              const [{ isDragging }, drag, preview] = useDrag(() => ({
-                                type: 'Product',
-                                item: { name: product.name, price: product.price },
-                                end: (product, monitor) => {
-                                  const dropResult = monitor.getDropResult()
-                                  if (product && dropResult) {
-                                    alert(`You just added ${product.name}`);
-                                  }
-                                },
-                                collect: (monitor) => ({
-                                  isDragging: monitor.isDragging(),
-                                  // handlerId: monitor.getHandlerId(),
-                                })
-                              }))
+                              // const [{ isDragging }, drag, preview] = useDrag(() => ({
+                              //   type: 'Product',
+                              //   item: { name: product.name, price: product.price },
+                              //   end: (product, monitor) => {
+                              //     const dropResult = monitor.getDropResult()
+                              //     if (product && dropResult) {
+                              //       alert(`You just added ${product.name}`);
+                              //     }
+                              //   },
+                              //   collect: (monitor) => ({
+                              //     isDragging: monitor.isDragging(),
+                              //     // handlerId: monitor.getHandlerId(),
+                              //   })
+                              // }))
 
                               // const [isHold, setIsHold] = useState(false);
                               // const [holdTimeout, setHoldTimeout] = useState(null);
@@ -143,33 +141,6 @@ export default function Store() {
                               //   };
                               // }, [holdTimeout]);
 
-                              const [isLongPress, setIsLongPress] = useState(false);
-                              const longPressTimeout = useRef(null); // To hold the timeout reference
-
-
-
-                              const handleTouchStart = (event, pId) => {
-                                const currentTime = new Date().getTime();
-                                const tapGap = currentTime - lastTap;
-                                setLastTap(currentTime);
-
-                                // Check for double-tap
-                                if (tapGap < 300 && tapGap > 0) {
-                                  handleSelectProduct(pId);
-                                } else {
-                                  // Start long-press timer
-                                  longPressTimeout.current = setTimeout(() => {
-                                    console.log("Long Press started")
-                                    setIsLongPress(true);
-                                  }, 500);
-                                }
-                              };
-
-                              const handleTouchEnd = () => {
-                                clearTimeout(longPressTimeout.current);
-                                setIsLongPress(false); // Reset the long-press state on touch end
-                              };
-
                               const handleClick= (event,pId) => {
                                 const currentTime = new Date().getTime();
                                 const tapGap = currentTime - lastTap;
@@ -184,7 +155,7 @@ export default function Store() {
                               return (
                                 <>
                                   <div
-                                    className={`${product.col === 2 && 'col-span-4 sm:col-span-2'} ${product.col === 3 ? 'col-span-6 sm:col-span-3' : ''} ${product.col === 4 ? 'col-span-8 sm:col-span-4' : ''} ${isDragging ? 'opactiy-40' : 'opacity-100'}`}
+                                    className={`${product.col === 2 && 'col-span-4 sm:col-span-2'} ${product.col === 3 ? 'col-span-6 sm:col-span-3' : ''} ${product.col === 4 ? 'col-span-8 sm:col-span-4' : ''}`}
                                   >
                                     <div className='h-[90px] lg:h-shelfHeight flex items-end relative overflow-hidden mx-[2px]'
                                       // onDoubleClick={() => {
@@ -256,8 +227,10 @@ export default function Store() {
                                         <div className='absolute right-1 top-1 cursor-pointer'>
                                           <img src='/close.svg' className={`h-6`} onClick={(e) => { e.stopPropagation(); handleClickOutside() }} />
                                         </div>
-                                        <div className='w-1/3 flex justify-center max-sm:mt-10  sm:h-4/5'>
-                                          <img className='productImage max-sm:h-[200px] h-full' src={product.imgUrl} alt={product.name} />
+                                        <div className='max-sm:w-full w-1/3 px-10 max-sm:mt-10  sm:h-4/5 relative '>
+                                          { product.newLaunch && 
+                                            <img className='absolute h-14 w-16 top-0 left-2 z-50 object-cover' src={newLaunch}/>}
+                                          <img className='mx-auto productImage max-sm:h-[200px] h-full' src={product.imgUrl} alt={product.name} />
                                         </div>
                                         <div className='flex-1 h-4/5 flex flex-col items-start max-sm:p-10 px-10'>
                                           <div className=' w-full text-start font-medium'>{product.name}</div>
