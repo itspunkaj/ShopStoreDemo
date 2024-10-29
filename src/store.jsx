@@ -232,24 +232,24 @@ export default function Store() {
                                             <img className='absolute h-14 w-16 top-0 left-2 z-50 object-cover' src={newLaunch} />}
                                           <img className='mx-auto productImage max-sm:h-[200px] h-full' src={product.imgUrl} alt={product.name} />
                                         </div>
-                                        <div className='flex-1 h-4/5 flex flex-col items-start max-sm:p-10 px-10'>
+                                        <div className='flex-1 h-4/5 flex flex-col items-start max-sm:px-6 py-10 px-10'>
                                           <div className=' w-full text-start font-medium'>{product.name}</div>
                                           <div className='flex-1 text-start text-xs lg:text-sm h-auto flex items-center py-3'>
                                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim vseniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                                           </div>
-                                          <div className='flex items-center '>
+                                          <div className='flex items-center w-full'>
                                             <div className='max-lg:text-base'>${product.price}
                                               {product.discount && <>&nbsp;<span className='line-through text-slate-400 text-xs'>${Math.round(((product.price / (100 - product.discount)) * 100) * 100) / 100}</span>
                                                 &nbsp;<span className='text-xs'>({product.discount}% off)</span></>}
                                             </div>
                                             {product.productId in boughtItems && boughtItems[product.productId] > 0 ?
-                                              <div className='rounded-lg bg-primaryYellow text-primaryBlue   py-1 lg:py-2 text-sm mx-5 font-semibold'>
+                                              <div className='rounded-lg bg-primaryYellow text-primaryBlue   py-1 lg:py-2 text-sm ml-2 sm:mx-5 font-semibold'>
                                                 <button className='w-5 h-5 border-r border-primaryBlue mx-1' onClick={() => { removePrice(product.price); removeBoughtItems(product.productId) }}>-</button>
                                                 <span className='px-1 text-sm mx-2'>{boughtItems[product.productId] > 1 ? (boughtItems[product.productId] + ' Items') : (boughtItems[product.productId] + ' Item')} </span>
                                                 <button className='w-5 h-5 border-l border-primaryBlue mx-1' onClick={() => { addPrice(product.price); updateBoughtItems(product.productId) }}>+</button>
                                               </div>
                                               :
-                                              <button className='rounded-lg bg-primaryYellow text-primaryBlue px-5  py-1 lg:py-2 text-sm mx-5 font-semibold' onClick={() => { addPrice(product.price); updateBoughtItems(product.productId) }}>Add to cart</button>}
+                                              <button className='rounded-lg bg-primaryYellow text-primaryBlue px-5  py-1 lg:py-2 text-sm ml-2 sm:mx-5 font-semibold' onClick={() => { addPrice(product.price); updateBoughtItems(product.productId) }}>Add to cart</button>}
                                           </div>
                                         </div>
                                         {/* <div className='max-lg:text-[10px] text-sm'>{product.name}</div>
