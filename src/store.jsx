@@ -9,6 +9,7 @@ import searchIcon from './assets/searchIcon.svg';
 import hamburgerIcon from '/hamburger.svg'
 import EIcon from './assets/Screenshot 2024-10-18 123257.png';
 import newLaunch from './assets/2.svg'
+import discountIcon from '/Discount.svg'
 import Cart from './Cart';
 import { useItemsBoughtStore, usePriceStore } from './store/store';
 
@@ -163,14 +164,14 @@ export default function Store() {
                                       // }}
                                       onClick={(event) => handleClick(event, product.id)}
                                     >
-                                      {
+                                      {/* {
                                         product.discount &&
                                         <div className='discountOverlay absolute top-0 left-0 h-full w-full bg-green-500/20 border-2 flex flex-col justify-center items-center border-green-500 '>
                                           <span className='text-white text-lg'>
                                             {product.discount}% off
                                           </span>
                                         </div>
-                                      }
+                                      } */}
                                       <div
                                         className="absolute inset-0"
                                       // onMouseDown={handleStartHold} // For desktop mouse
@@ -192,11 +193,17 @@ export default function Store() {
                                     </div>
                                     <div className={`max-lg:h-shelfWidth h-[2rem]  w-full bg-[#BAAD94] flex items-center justify-center shadow-3xl`}>
 
-                                      <div className={`bg-slate-50 h-full w-44  border border-slate-400 rounded-md flex items-center justify-center relative`}>
+                                      <div className={`bg-slate-50 h-full w-44  border border-slate-400 rounded-md flex items-center justify-center relative overflow-hidden`}>
                                         {
                                           product.newLaunch &&
                                           <div className={`h-full absolute left-0 lg:top-1`}>
-                                            <img className={`h-shelfWidth w-6 lg:w-8 object-cover`} src={newLaunch} />
+                                            <img className={`h-shelfWidth w-5 lg:w-8 object-cover`} src={newLaunch} />
+                                          </div>
+                                        }
+                                        {
+                                          product.discount &&
+                                          <div className={`h-full absolute left-1`}>
+                                            <img className={`h-full w-6 mix-blend-multiply`} src={discountIcon} />
                                           </div>
                                         }
                                         <div className={`max-lg:text-[10px] text-xs px-1 h-full w-[80%] flex items-center justify-center flex-col`}>
@@ -208,7 +215,7 @@ export default function Store() {
                                             <img src={barCode} className={`object-cover h-3 w-16 max-lg:hidden`} />
                                           </div>
                                         </div>
-                                        <span className={`max-lg:text-sm px-1`}>${product.price}</span>
+                                        <span className={`max-lg:text-sm px-1`}>€{product.price}</span>
                                       </div>
                                     </div>
                                     {selectedProduct == product.id && (
@@ -222,14 +229,16 @@ export default function Store() {
                                         <div className='max-sm:w-full w-1/3 px-10 max-sm:mt-10  sm:h-4/5 relative '>
                                           {product.newLaunch &&
                                             <img className='absolute h-14 w-16 top-0 left-2 z-50 object-cover' src={newLaunch} />}
+                                          {product.discount &&
+                                            <img className='absolute h-14 w-14 top-0 left-2 z-50 object-cover mix-blend-multiply' src={discountIcon} />}
                                           <img className='mx-auto productImage max-sm:h-[200px] h-full' src={product.imgUrl} alt={product.name} />
                                         </div>
                                         <div className='flex-1 h-4/5 flex flex-col items-start max-sm:px-6 max-sm:py-10 px-10'>
                                           <div className='flex flex-col w-full'>
                                             <div className=' w-full text-start font-medium'>{product.name}</div>
-                                            <div className='flex text-[10px] py-1'>
-                                              <span className='px-2 rounded-full border'>Tag 1</span>
-                                              <span className='mx-1 px-2 rounded-full border'>Tag 2</span>
+                                            <div className='flex text-[10px] py-1 text-gray-500'>
+                                              <span className='px-2 rounded-full border border-gray-300'>Beauty</span>
+                                              <span className='mx-1 px-2 rounded-full border border-gray-300'>Lifestyle</span>
                                             </div>
 
                                           </div>
@@ -237,8 +246,8 @@ export default function Store() {
                                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim vseniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                                           </div>
                                           <div className='flex items-center w-full'>
-                                            <div className='max-lg:text-base'>${product.price}
-                                              {product.discount && <>&nbsp;<span className='line-through text-slate-400 text-xs'>${Math.round(((product.price / (100 - product.discount)) * 100) * 100) / 100}</span>
+                                            <div className='max-lg:text-base'>€ {product.price}
+                                              {product.discount && <>&nbsp;<span className='line-through text-slate-400 text-xs'>€ {Math.round(((product.price / (100 - product.discount)) * 100) * 100) / 100}</span>
                                                 &nbsp;<span className='text-xs'>({product.discount}% off)</span></>}
                                             </div>
                                             {product.productId in boughtItems && boughtItems[product.productId] > 0 ?
