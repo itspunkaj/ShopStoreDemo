@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -16,7 +16,7 @@ import { products } from './Products';
 import barCode from '/barcode.png';
 
 export default function Store() {
-  const [animatedElements, setAnimatedElements] = useState([]);
+  // const [animatedElements, setAnimatedElements] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [categoryMenuOpen, setCategoryMenuOpen] = useState(false);
   const [lastTap, setLastTap] = useState(0);
@@ -28,26 +28,26 @@ export default function Store() {
   const removeBoughtItems = useItemsBoughtStore((state) => state.removeProduct);
 
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const updatedAnimatedItems = products.flatMap(page =>
-        page.sections.flatMap(section =>
-          section.items
-            .filter(item => item.newLaunch)
-            .map(item => item.id)
-        )
-      );
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     const updatedAnimatedItems = products.flatMap(page =>
+  //       page.sections.flatMap(section =>
+  //         section.items
+  //           .filter(item => item.newLaunch)
+  //           .map(item => item.id)
+  //       )
+  //     );
 
-      setAnimatedElements(updatedAnimatedItems);
+  //     setAnimatedElements(updatedAnimatedItems);
 
-      setTimeout(() => {
-        setAnimatedElements([]);
-      }, 1000);
+  //     setTimeout(() => {
+  //       setAnimatedElements([]);
+  //     }, 1000);
 
-    }, 3000);
+  //   }, 3000);
 
-    return () => clearInterval(interval);
-  }, []);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   const handleSelectProduct = (pId) => {
     console.log(`Product with id ${pId} got Selected`);
@@ -58,14 +58,6 @@ export default function Store() {
   const handleClickOutside = () => {
     setSelectedProduct('');
   };
-  // useEffect(() => {
-  //   if (selectedProduct !== null) {
-  //     console.log("Unslected Product.")
-  //     document.addEventListener('click', handleClickOutside);
-  //   } else {
-  //     document.removeEventListener('click', handleClickOutside);
-  //   }
-  // }, [])
 
   const toggleCategoryMenu = () => {
     setCategoryMenuOpen(!categoryMenuOpen);
@@ -193,7 +185,7 @@ export default function Store() {
                                       {Array.from({ length: product.imageCount }, (p, index) => {
                                         return (
                                           <img
-                                            data-testid={"product"} key={k + index} src={product.imgUrl} className={`!max-h-[98%] mx-auto ${product.imageCount == 2 ? 'w-1/2' : ''} ${product.imageCount == 3 ? 'w-1/3' : ''} ${product.imageCount == 4 ? 'w-1/4' : ''} ${product.imageCount == 5 ? 'w-1/5' : ''} ${product.imageCount == 6 ? 'w-1/6' : ''} max-mx-[3px] object-bottom ${animatedElements.includes(product.id) ? 'shakeAnimation' : ''}`} alt={product.name}
+                                            data-testid={"product"} key={k + index} src={product.imgUrl} className={`!max-h-[98%] mx-auto ${product.imageCount == 2 ? 'w-1/2' : ''} ${product.imageCount == 3 ? 'w-1/3' : ''} ${product.imageCount == 4 ? 'w-1/4' : ''} ${product.imageCount == 5 ? 'w-1/5' : ''} ${product.imageCount == 6 ? 'w-1/6' : ''} max-mx-[3px] object-bottom ${product.newLaunch ? 'shakeAnimation' : ''}`} alt={product.name}
                                           />
                                         )
                                       })}
