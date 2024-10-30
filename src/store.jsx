@@ -7,7 +7,7 @@ import { Navigation } from 'swiper/modules';
 
 import searchIcon from './assets/searchIcon.svg';
 import hamburgerIcon from '/hamburger.svg'
-import EIcon from './assets/Screenshot 2024-10-18 123257.png';
+import EIcon from './assets/Edeka.png';
 import newLaunch from './assets/2.svg'
 import discountIcon from '/Discount.svg'
 import Cart from './Cart';
